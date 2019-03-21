@@ -105,7 +105,7 @@ class PlayerSelector3Env(gym.Env):
         
         if playerAlreadySelected or self.isPositionOverflow(playerPosition):
             reward = 0
-            return self.state, reward, done, self.selectedPlayers
+            return self.state, reward, done, {"players": str(self.selectedPlayers)}
         else:
             reward = playerScore
             self.selectedPlayers = np.append(self.selectedPlayers, playerName)
@@ -127,7 +127,7 @@ class PlayerSelector3Env(gym.Env):
             reward = 500
             
         self.state = (newPlayerCount, newCountGK, newCountDF, newCountMF, newCountST, newBudget, newScore)
-        return self.state, reward, done, self.selectedPlayers
+        return self.state, reward, done, {"players": str(self.selectedPlayers)}
     
     def mapPlayers(self, playerId):
         return self.players.iloc[playerId,:]
